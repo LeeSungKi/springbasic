@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd">
+	
+	<!-- Root Context: defines shared resources visible to all other web components -->
+	<bean id = "mySetBean" class= "com.test.ch04.MySet">
+		<property name="testSet">
+			<set>
+				<value>서울</value>
+				<value>부산</value>
+				<value>대전</value>
+				<value>대구</value>
+				<value>경기</value>
+			</set>
+		</property>
+	</bean>
+	<bean id = "myListBean" class = "com.test.ch04.MyList">
+		<property name="testList">
+			<list>
+				<value>사과</value>
+				<value>바나나</value>
+				<value>수박</value>
+				<value>딸기</value>
+			</list>
+		</property>
+	</bean>
+	<bean id = "myMapBean" class = "com.test.ch04.MyMap">
+		<property name="testMap">
+			<map>
+				<entry key = "pok1" value = "010-1111-2222"/>
+				<entry key = "pok2" value = "010-3333-4444"/>
+				<entry key = "pok3" value = "010-5555-6666"/>
+				<entry key = "pok4" value = "010-7777-8888"/>
+			</map>
+		</property>
+	</bean>
+	<bean id = "myPropBean" class = "com.test.ch04.MyProp">
+		<property name="testProp">
+			<props>
+				<prop key="driver">oracle.jdbc.driver.OracleDriver</prop>
+				<prop key="url">jdbc:oracle:thin:@localhost:1521:xe</prop>
+				<prop key="user">web1400</prop>
+				<prop key="password">jsppassword</prop>
+			</props>
+		</property>
+	</bean>
+</beans>
+
+
+
+
+
+
+
+
+
+
+
+
+

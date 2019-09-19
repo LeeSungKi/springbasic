@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd">
+	
+	<!-- Root Context: defines shared resources visible to all other web components -->
+		<!-- DataSource (DBCP) 생성 -->
+	<context:property-placeholder 
+			location="classpath:config/mybatis/db.properties"/>
+	<bean id = "ds" class = "org.apache.commons.dbcp.BasicDataSource">
+		<property name="driverClassName" value = "${driver}"/>
+		<property name="url" value = "${url}"/>
+		<property name="username" value = "${user}"/>
+		<property name="password" value = "${password}"/>
+		<property name="defaultAutoCommit" value = "false"/>
+		<property name="maxActive" value = "10"/>
+	</bean>	
+	
+	<!-- myBatis의 SqlSession 생성 -->
+	<bean id = "sFactory" class = "org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref = "ds"/>
+		<property name="configLocation" value ="classpath:config/mybatis/mybatis-config.xml"/>
+	</bean>
+	<bean id= "sSession" class = "org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg name="sqlSessionFactory" ref = "sFactory"/>
+	</bean> 
+
+	<!-- dao 객체 생성 -->
+	<!-- <bean id = "vDao" class = "com.lsg.persistence.MemberDaoImpl">
+		<property name="sql" ref = "sSession"/>
+	</bean>  -->
+	 <!-- 패키지 -->
+	 <context:component-scan base-package="com.lsg.domain"/>
+	 <context:component-scan base-package="com.lsg.persistence"/>
+	 <context:component-scan base-package="com.lsg.service"/>
+	 
+</beans>

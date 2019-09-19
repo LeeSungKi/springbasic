@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.1.xsd">
+	
+	<!--Service Bean 수동생성 (auto-detectiong 하면 Proxy대신 원본 객체가 먼저 생성됨)
+	(aop 설정을 읽어드리기 전에 component가 scan되어 생성되기 때문)  -->
+	<bean id="service" class="com.test.ch11.service.MyService"/>
+	
+	<!-- Advice(공통사항) 객체 생성 -->
+	<bean id="advice" class="advice.Advice"/>
+	<!--namespaces에서  aop체크 하기 -->
+	<aop:config>
+		<aop:pointcut id="myPoint" expression="execution(public * com.test.ch11.service.*Service.*(..))" />
+		<aop:aspect id="test" ref="advice">
+			<aop:before method="myBefore" pointcut-ref="myPoint"/>
+			<aop:after method="myAfter" pointcut-ref="myPoint"/>
+		</aop:aspect>
+	</aop:config>
+	
+</beans>

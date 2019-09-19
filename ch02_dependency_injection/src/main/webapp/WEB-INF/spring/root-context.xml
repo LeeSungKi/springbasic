@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd">
+	
+	<!-- Root Context: defines shared resources visible to all other web components -->
+	
+	<bean id = "p1" class = "vo.PokemonVo"/>
+	
+	<!-- setter injection -->	
+	<bean id="p2" class="vo.PokemonVo">
+		<property name="name" value = "피카츄"/>
+		<property name="level" value = "10"/>
+		<property name="hp" value = "1000"/>
+	</bean>	
+	
+	<!-- constructor injection -->
+	<bean id="p3" class="vo.PokemonVo" scope="prototype">
+		<constructor-arg value="라이츄"/>
+		<constructor-arg value="20"/>
+		<constructor-arg value="2000"/>
+	</bean>
+	<!-- 일반  bean은 기본적으로 싱글톤 패턴의 객체임
+		(모든 페이지에서 동일한 객체를 얻음) => application 영역에 분류됨 
+		scope를 "prototype"으로 지정하면 페이지 상관없이 bean을 요청할 때 마다
+		bean을 새로 생성하여 보내줌 -->
+		
+	<!-- PokemonDao pDao = new PokemonDao()  -->
+	<bean id="pDao" class="dao.PokemonDao"/>	
+	
+	<!--PokemonService pService = new PokemonService();
+		pService.setDao(pDao);  -->
+	<bean id="pService" class="service.PokemonService">
+		<property name="dao" ref="pDao"/>
+	</bean>	
+	
+</beans>
